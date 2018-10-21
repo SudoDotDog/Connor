@@ -1,6 +1,6 @@
 /**
  * @author WMXPY
- * @namespace Util_Error
+ * @namespace Connor
  * @description Error
  */
 
