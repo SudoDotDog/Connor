@@ -4,5 +4,6 @@
         "connor",
         "ifeq",
         "setx"
-    ]
+    ],
+    "tslint.configFile": "typescript/tslint.json"
 }
