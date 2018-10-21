@@ -9,38 +9,44 @@ import { ConnorError } from "./error";
 
 export class Connor {
 
+    public static get instance(): Connor {
+
+        if (!this._instance) {
+
+            this._instance = new Connor();
+        }
+        return this._instance;
+    }
+
     public static dictionary(dict: IConnorDictionary): Connor {
 
-        const connor: Connor = this._getInstance();
+        const connor: Connor = this.instance;
         connor._combineDictionary(dict);
         return connor;
     }
 
+    public static refresh(): void {
+
+        this._instance = undefined;
+    }
+
     public static getErrorCreator(moduleName?: string): ErrorCreationFunction {
 
-        return this._getInstance().getErrorCreator(moduleName);
+        return this.instance.getErrorCreator(moduleName);
     }
 
     private static _instance: Connor | undefined;
-
-    private static _getInstance(): Connor {
-
-        if (this._instance) {
-            return this._instance;
-        }
-        return new Connor();
-    }
 
     private _dictionary: IConnorDictionary;
 
     private constructor() {
 
         this._dictionary = {
-            0: 'Connor Internal Error',
+            0: 'Connor Internal Error: {}',
         };
     }
 
-    public getDescription(symbol: number | string): string {
+    public getRawDescription(symbol: number | string): string {
 
         if (typeof symbol === 'number') {
 
@@ -75,7 +81,7 @@ const createErrorCreator = (connor: Connor, moduleName?: string): ErrorCreationF
 
     return (symbol: number | string, ...replaces: string[]): ConnorError => {
 
-        const info: string = connor.getDescription(symbol);
+        const info: string = connor.getRawDescription(symbol);
         const code: number
             = typeof symbol === 'number'
                 ? symbol
