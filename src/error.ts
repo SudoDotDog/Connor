@@ -9,23 +9,27 @@ export class ConnorError extends Error {
     public code: number;
     public description: string;
     public message: string;
+    public module: string | undefined;
 
-    public constructor(code: number, description: string, ...replaces: string[]) {
+    public constructor(
+        code: number,
+        moduleName: string | undefined,
+        description: string,
+        ...replaces: string[]) {
 
         super();
 
         this.code = code;
-        this.description = description;
-        this.message = code + ": " + description;
+        this.description = this._replace(description, ...replaces);
+        this.message = code + ": " + this.description;
+
+        this.module = moduleName;
+    }
+
+    private _replace(description: string, ...replaces: string[]): string {
+
+        return replaces.reduce((prev: string, current: string) => {
+            return prev.replace('{}', current);
+        }, description);
     }
 }
-
-// export const error = (code: ERROR_CODE, ...replaces: string[]): MarkedError => {
-
-//     const newError: MarkedError = Boolean(ERROR_LIST[code])
-//         ? new MarkedError(code, ERROR_LIST[code], info, node, trace)
-//         : new MarkedError(ERROR_CODE.INTERNAL_ERROR, ERROR_LIST[ERROR_CODE.INTERNAL_ERROR], info, node, trace);
-
-//     if (newError.code > 9001) console.log(newError);
-//     return newError;
-// };
