@@ -7,6 +7,7 @@
 import { ConnorAssert } from "./assert";
 import { ErrorCreationFunction, IConnorDictionary } from "./declare";
 import { ConnorError } from "./error";
+import { CONNOR_ERROR_DESCRIPTION, CONNOR_MODULE, INTERNAL_ERROR_MESSAGE } from "./static";
 
 export class Connor {
 
@@ -43,7 +44,7 @@ export class Connor {
     private constructor() {
 
         this._dictionary = {
-            0: 'Connor Internal Error: {}',
+            0: INTERNAL_ERROR_MESSAGE,
         };
     }
 
@@ -54,7 +55,10 @@ export class Connor {
             const description: string | undefined = this._dictionary[symbol];
             if (!description) {
 
-                throw new ConnorError(0, 'Connor', this._dictionary[0], 'Error not found');
+                throw new ConnorError(0,
+                    CONNOR_MODULE.CONNOR,
+                    this._dictionary[0],
+                    CONNOR_ERROR_DESCRIPTION.ERROR_NOT_FOUND);
             }
             return description;
         }
@@ -70,7 +74,10 @@ export class Connor {
 
         if (dict[0] || dict[1]) {
 
-            throw new ConnorError(0, 'Connor', this._dictionary[0], 'Core 0 and 1 are occupied by internal error');
+            throw new ConnorError(0,
+                CONNOR_MODULE.CONNOR,
+                this._dictionary[0],
+                CONNOR_ERROR_DESCRIPTION.CORE_0_1_ARE_OCCUPIED);
         }
 
         this._dictionary = { ...this._dictionary, ...dict };

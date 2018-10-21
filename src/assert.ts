@@ -7,6 +7,7 @@
 import { isNumber, isString } from "util";
 import { ErrorCreationFunction } from "./declare";
 import { ConnorError } from "./error";
+import { ASSERT_ERROR_DESCRIPTION } from "./static";
 
 export class ConnorAssert<T> {
 
@@ -56,7 +57,7 @@ export class ConnorAssert<T> {
         });
         if (!result) {
 
-            throw this._error('Element not exist', symbol, ...replaces);
+            throw this._error(ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_EXIST, symbol, ...replaces);
         }
         return this;
     }
@@ -69,7 +70,7 @@ export class ConnorAssert<T> {
         });
         if (!result) {
 
-            throw this._error('Element not exist', symbol, ...replaces);
+            throw this._error(ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE, symbol, ...replaces);
         }
         return this;
     }
@@ -82,7 +83,7 @@ export class ConnorAssert<T> {
         });
         if (!result) {
 
-            throw this._error('Element not exist', symbol, ...replaces);
+            throw this._error(ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_ARRAY, symbol, ...replaces);
         }
         return this;
     }
@@ -95,7 +96,7 @@ export class ConnorAssert<T> {
         });
         if (!result) {
 
-            throw this._error('Element not exist', symbol, ...replaces);
+            throw this._error(ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_NUMBER, symbol, ...replaces);
         }
         return this;
     }
@@ -108,7 +109,7 @@ export class ConnorAssert<T> {
         });
         if (!result) {
 
-            throw this._error('Element not exist', symbol, ...replaces);
+            throw this._error(ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_STRING, symbol, ...replaces);
         }
         return this;
     }
