@@ -5,130 +5,138 @@
  */
 
 import { isNumber, isString } from "util";
+import { ErrorCreationFunction } from "./declare";
+import { ConnorError } from "./error";
 
-class Assert<T> {
+export class ConnorAssert<T> {
 
+    private _creator: ErrorCreationFunction;
     private _elements: T[];
     private _reverse: boolean;
 
-    public constructor(element: T) {
+    public constructor(creator: ErrorCreationFunction, element: T) {
 
+        this._creator = creator;
         this._elements = [element];
         this._reverse = false;
     }
 
-    public get is(): Assert<T> {
+    public get is(): ConnorAssert<T> {
 
         return this;
     }
 
-    public get to(): Assert<T> {
+    public get to(): ConnorAssert<T> {
 
         return this;
     }
 
-    public get be(): Assert<T> {
+    public get be(): ConnorAssert<T> {
 
         return this;
     }
 
-    public get not(): Assert<T> {
+    public get not(): ConnorAssert<T> {
 
         this._reverse = true;
         return this;
     }
 
-    public and(element: T): Assert<T> {
+    public and(element: T): ConnorAssert<T> {
 
         this._elements.push(element);
         return this;
     }
 
-    // public exist(code: ERROR_CODE = ERROR_CODE.ASSERT_EXIST_ELEMENT_NOT_EXIST): Assert<T> {
+    public exist(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
 
-    //     const result: boolean = this.eachElement((value: T) => {
+        const result: boolean = this._eachElement((value: T) => {
 
-    //         return value !== null && value !== undefined;
-    //     });
-    //     if (!result) {
+            return value !== null && value !== undefined;
+        });
+        if (!result) {
 
-    //         throw error(code);
-    //     }
-    //     return this;
-    // }
+            throw this._error('Element not exist', symbol, ...replaces);
+        }
+        return this;
+    }
 
-    // public true(code: ERROR_CODE = ERROR_CODE.ASSERT_BOOLEAN_OPPOSITE): Assert<T> {
+    public true(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
 
-    //     const result: boolean = this.eachElement((value: T) => {
+        const result: boolean = this._eachElement((value: T) => {
 
-    //         return Boolean(value);
-    //     });
-    //     if (!result) {
+            return Boolean(value);
+        });
+        if (!result) {
 
-    //         throw error(code);
-    //     }
-    //     return this;
-    // }
+            throw this._error('Element not exist', symbol, ...replaces);
+        }
+        return this;
+    }
 
-    // public array(code: ERROR_CODE = ERROR_CODE.ASSERT_TYPE_NOT_MATCHED): Assert<T> {
+    public array(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
 
-    //     const result: boolean = this.eachElement((value: T) => {
+        const result: boolean = this._eachElement((value: T) => {
 
-    //         return value instanceof Array;
-    //     });
-    //     if (!result) {
+            return value instanceof Array;
+        });
+        if (!result) {
 
-    //         throw error(code);
-    //     }
-    //     return this;
-    // }
+            throw this._error('Element not exist', symbol, ...replaces);
+        }
+        return this;
+    }
 
-    // public number(code: ERROR_CODE = ERROR_CODE.ASSERT_TYPE_NOT_MATCHED): Assert<T> {
+    public number(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
 
-    //     const result: boolean = this.eachElement((value: T) => {
+        const result: boolean = this._eachElement((value: T) => {
 
-    //         return isNumber(value);
-    //     });
-    //     if (!result) {
+            return isNumber(value);
+        });
+        if (!result) {
 
-    //         throw error(code);
-    //     }
-    //     return this;
-    // }
+            throw this._error('Element not exist', symbol, ...replaces);
+        }
+        return this;
+    }
 
-    // public string(code: ERROR_CODE = ERROR_CODE.ASSERT_TYPE_NOT_MATCHED): Assert<T> {
+    public string(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
 
-    //     const result: boolean = this.eachElement((value: T) => {
+        const result: boolean = this._eachElement((value: T) => {
 
-    //         return isString(value);
-    //     });
-    //     if (!result) {
+            return isString(value);
+        });
+        if (!result) {
 
-    //         throw error(code);
-    //     }
-    //     return this;
-    // }
+            throw this._error('Element not exist', symbol, ...replaces);
+        }
+        return this;
+    }
 
-    // public firstValue(): T {
+    public firstValue(): T {
 
-    //     return this._elements[0];
-    // }
+        return this._elements[0];
+    }
 
-    // protected eachElement(func: (value: T) => boolean) {
+    private _error(description: string, symbol?: number | string, ...replaces: string[]): ConnorError {
 
-    //     for (const element of this._elements) {
+        if (symbol) {
 
-    //         const result: boolean = func(element);
-    //         if (this._reverse === result) {
+            return this._creator(symbol, ...replaces);
+        }
+        return this._creator(0, description);
+    }
 
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
+    private _eachElement(func: (value: T) => boolean): boolean {
+
+        for (const element of this._elements) {
+
+            const result: boolean = func(element);
+            if (this._reverse === result) {
+
+                return false;
+            }
+        }
+        return true;
+    }
 }
-
-export const assert = <T>(element: T) => {
-
-    return new Assert<T>(element);
-};

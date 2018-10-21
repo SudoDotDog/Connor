@@ -4,6 +4,7 @@
  * @description Index
  */
 
+import { ConnorAssert } from "./assert";
 import { ErrorCreationFunction, IConnorDictionary } from "./declare";
 import { ConnorError } from "./error";
 
@@ -76,6 +77,15 @@ export class Connor {
         return this;
     }
 }
+
+const createAssertCreator = (connor: Connor, moduleName?: string) => {
+
+    return <T>(element: T) => {
+
+        const creator: ErrorCreationFunction = createErrorCreator(connor, moduleName);
+        return new ConnorAssert<T>(creator, element);
+    };
+};
 
 const createErrorCreator = (connor: Connor, moduleName?: string): ErrorCreationFunction => {
 
