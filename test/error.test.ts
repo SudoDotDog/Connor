@@ -9,7 +9,7 @@ import * as Chance from 'chance';
 import { ErrorCreationFunction } from '../src/declare';
 import { Connor } from '../src/index';
 
-describe('Given an error creator', (): void => {
+describe('Given an <ErrorCreator> function', (): void => {
 
     const twoDescription: string = 'two {}, two {}';
     const threeDescription: string = 'three {}, three {}, three {}';
@@ -24,16 +24,22 @@ describe('Given an error creator', (): void => {
 
     after(Connor.refresh);
 
-    const chance = new Chance('error-creator');
+    const chance: Chance.Chance = new Chance('error-creator');
 
     it('should be able to get description', (): void => {
 
         const description: string = Connor.instance.getRawDescription(2);
         expect(description).to.be.equal(twoDescription);
     });
+
+    it('should be able throw error', (): void => {
+
+        const exec: () => void = () => Connor.instance.getRawDescription(chance.natural());
+        expect(exec).to.be.throw('0: Connor Internal Error: Error not found');
+    });
 });
 
-describe('Given an connor error class', (): void => {
+describe('Given an <ConnorError> class', (): void => {
 
     const twoDescription: string = 'two {}, two {}';
 
@@ -46,7 +52,7 @@ describe('Given an connor error class', (): void => {
 
     after(Connor.refresh);
 
-    const chance = new Chance('connor-error-class');
+    const chance: Chance.Chance = new Chance('connor-error-class');
 
 
     it('should be able to get description', (): void => {

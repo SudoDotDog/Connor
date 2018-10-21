@@ -62,7 +62,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public true(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public true(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -75,7 +75,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public array(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public array(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -88,7 +88,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public number(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public number(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -101,7 +101,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public string(symbol: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public string(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
 
         const result: boolean = this._eachElement((value: T) => {
 

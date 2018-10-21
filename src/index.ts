@@ -37,6 +37,11 @@ export class Connor {
         return this.instance.getErrorCreator(moduleName);
     }
 
+    public static getAssertCreator(moduleName?: string): <T>(element: T) => ConnorAssert<T> {
+
+        return this.instance.getAssertCreator(moduleName);
+    }
+
     private static _instance: Connor | undefined;
 
     private _dictionary: IConnorDictionary;
@@ -70,6 +75,11 @@ export class Connor {
         return createErrorCreator(this, moduleName);
     }
 
+    public getAssertCreator(moduleName?: string): <T>(element: T) => ConnorAssert<T> {
+
+        return createAssertCreator(this, moduleName);
+    }
+
     private _combineDictionary(dict: IConnorDictionary): Connor {
 
         if (dict[0] || dict[1]) {
@@ -85,9 +95,9 @@ export class Connor {
     }
 }
 
-const createAssertCreator = (connor: Connor, moduleName?: string) => {
+const createAssertCreator = (connor: Connor, moduleName?: string): <T>(element: T) => ConnorAssert<T> => {
 
-    return <T>(element: T) => {
+    return <T>(element: T): ConnorAssert<T> => {
 
         const creator: ErrorCreationFunction = createErrorCreator(connor, moduleName);
         return new ConnorAssert<T>(creator, element);
