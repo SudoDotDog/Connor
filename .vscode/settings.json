@@ -3,7 +3,9 @@
         "Dependences",
         "connor",
         "ifeq",
-        "setx"
+        "setx",
+        "sudoo",
+        "tshook"
     ],
     "tslint.configFile": "typescript/tslint.json"
 }
