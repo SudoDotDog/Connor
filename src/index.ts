@@ -122,3 +122,7 @@ const createErrorCreator = (connor: Connor, moduleName?: string): ErrorCreationF
 };
 
 export default Connor;
+export {
+    ConnorAssert,
+    ErrorCreationFunction as ConnorError,
+};
