@@ -120,3 +120,5 @@ const createErrorCreator = (connor: Connor, moduleName?: string): ErrorCreationF
         return error;
     };
 };
+
+export default Connor;
