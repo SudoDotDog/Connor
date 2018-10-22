@@ -91,6 +91,27 @@ describe('Given an <AssertCreator> function', (): void => {
         expect(result).to.be.deep.equal([]);
     });
 
+    it('should be able to check string - happy path', (): void => {
+
+        const str: string = chance.string();
+        const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
+        const result: string = assert(str).is.string().firstValue();
+
+        expect(result).to.be.deep.equal(str);
+    });
+
+    it('should be able to check string - sad path', (): void => {
+
+        const integer: number = chance.integer();
+        const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
+        const exec: () => void = () => {
+            assert(integer as any as string).is.string();
+        };
+
+        const errText: string = error(0, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_STRING).message;
+        expect(exec).to.be.throw(errText);
+    });
+
     it('should return if element is a number', (): void => {
 
         const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
@@ -118,12 +139,22 @@ describe('Given an <AssertCreator> function', (): void => {
         expect(result).to.be.true;
     });
 
-    it('true should throw when element is not', (): void => {
+    it('should throw when element is not', (): void => {
 
         const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
         const errText: string = error(0, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE).message;
         const exec: () => void = () => {
             assert(false).to.be.true();
+        };
+        expect(exec).to.be.throw(errText);
+    });
+
+    it('should throw some target error', (): void => {
+
+        const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
+        const errText: string = error(2, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE).message;
+        const exec: () => void = () => {
+            assert(false).to.be.true(2, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE);
         };
         expect(exec).to.be.throw(errText);
     });
