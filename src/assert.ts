@@ -114,6 +114,19 @@ export class ConnorAssert<T> {
         return this;
     }
 
+    public has(key: string | number, symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+
+        const result: boolean = this._eachElement((value: T) => {
+
+            return Boolean(value) && Boolean((value as any)[key]);
+        });
+        if (!result) {
+
+            throw this._error(ASSERT_ERROR_DESCRIPTION.ELEMENT_SHOULD_HAS_KEY, symbol, ...replaces);
+        }
+        return this;
+    }
+
     public firstValue(): T {
 
         return this._elements[0];

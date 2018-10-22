@@ -112,6 +112,46 @@ describe('Given an <AssertCreator> function', (): void => {
         expect(exec).to.be.throw(errText);
     });
 
+    it('should be able to check has key - happy path', (): void => {
+
+        const key: string = chance.string();
+        const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
+        const element: any = {
+            [key]: chance.natural(),
+        };
+        const result: string = assert(element).to.has(key).firstValue();
+
+        expect(result).to.be.deep.equal(element);
+    });
+
+    it('should be able to check has key - sad path', (): void => {
+
+        const key: string = chance.string();
+        const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
+        const element: any = {
+            [key + 'NAH']: chance.natural(),
+        };
+        const exec: () => void = () => {
+            assert(element).to.has(key);
+        };
+
+        const errText: string = error(0, ASSERT_ERROR_DESCRIPTION.ELEMENT_SHOULD_HAS_KEY).message;
+        expect(exec).to.be.throw(errText);
+    });
+
+    it('should be able to check has key - broke path', (): void => {
+
+        const integer: number = chance.integer();
+        const key: string = chance.string();
+        const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
+        const exec: () => void = () => {
+            assert(integer as any as string).to.has(key);
+        };
+
+        const errText: string = error(0, ASSERT_ERROR_DESCRIPTION.ELEMENT_SHOULD_HAS_KEY).message;
+        expect(exec).to.be.throw(errText);
+    });
+
     it('should return if element is a number', (): void => {
 
         const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
