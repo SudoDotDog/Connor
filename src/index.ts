@@ -5,7 +5,7 @@
  */
 
 import { ConnorAssert } from "./assert";
-import { ErrorCreationFunction, IConnorDictionary } from "./declare";
+import { AssertCreationFunction, ErrorCreationFunction, IConnorDictionary } from "./declare";
 import { ConnorError } from "./error";
 import { CONNOR_ERROR_DESCRIPTION, CONNOR_MODULE, INTERNAL_ERROR_MESSAGE } from "./static";
 
@@ -37,7 +37,7 @@ export class Connor {
         return this.instance.getErrorCreator(moduleName);
     }
 
-    public static getAssertCreator(moduleName?: string): <T>(element: T) => ConnorAssert<T> {
+    public static getAssertCreator(moduleName?: string): AssertCreationFunction {
 
         return this.instance.getAssertCreator(moduleName);
     }
@@ -122,7 +122,4 @@ const createErrorCreator = (connor: Connor, moduleName?: string): ErrorCreationF
 };
 
 export default Connor;
-export {
-    ConnorAssert,
-    ErrorCreationFunction as ConnorError,
-};
+export { AssertCreationFunction, ConnorAssert, ConnorError, ErrorCreationFunction, IConnorDictionary };
