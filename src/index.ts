@@ -72,7 +72,7 @@ export class Connor {
         if (moduleName === CONNOR_MODULE.CONNOR ||
             moduleName === CONNOR_MODULE.ASSERT) {
 
-            throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.MODULE_NAME_OCCUPIED);
+            throw new ConnorError(1, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.MODULE_NAME_OCCUPIED);
         }
 
         this._dictionary = {};

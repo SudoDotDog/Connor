@@ -9,7 +9,7 @@ import * as Chance from 'chance';
 import { ErrorCreationFunction } from '../src/declare';
 import { ConnorError } from '../src/error';
 import { Connor } from '../src/index';
-import { } from '../src/static';
+import { CONNOR_MODULE } from '../src/static';
 
 describe('Given an <Connor> class', (): void => {
 
@@ -60,5 +60,41 @@ describe('Given an <Connor> class', (): void => {
         const result: string = Connor.instance(moduleName).getRawDescription(symbol);
 
         expect(result).to.be.equal(symbol);
+    });
+
+    it('should be able to throw when asking for not defined error creator', (): void => {
+
+        const exec: () => void = () => {
+            Connor.getErrorCreator(chance.string());
+        };
+
+        expect(exec).to.be.throw('CONNOR [0]: Module not found');
+    });
+
+    it('should be able to throw when asking for not defined assert creator', (): void => {
+
+        const exec: () => void = () => {
+            Connor.getAssertCreator(chance.string());
+        };
+
+        expect(exec).to.be.throw('CONNOR [0]: Module not found');
+    });
+
+    it('should be able to throw when create connor module', (): void => {
+
+        const exec: () => void = () => {
+            Connor.instance(CONNOR_MODULE.CONNOR);
+        };
+
+        expect(exec).to.be.throw('CONNOR [1]: Module name is occupied');
+    });
+
+    it('should be able to throw when create assert module', (): void => {
+
+        const exec: () => void = () => {
+            Connor.instance(CONNOR_MODULE.ASSERT);
+        };
+
+        expect(exec).to.be.throw('CONNOR [1]: Module name is occupied');
     });
 });
