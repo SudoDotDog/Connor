@@ -16,19 +16,17 @@ describe('Given an <AssertCreator> function', (): void => {
     const threeDescription: string = 'three {}, three {}, three {}';
 
     const moduleName: string = 'connor-assert-test';
-    const error: ErrorCreationFunction = Connor.getErrorCreator();
+    const error: ErrorCreationFunction = Connor.instance(moduleName).getErrorCreator();
 
     const chance: Chance.Chance = new Chance('connor-assert');
 
     before((): void => {
 
-        Connor.dictionary({
+        Connor.dictionary(moduleName, {
             2: twoDescription,
             3: threeDescription,
         });
     });
-
-    after(Connor.refresh);
 
     it('exist should be fine if element is exist', (): void => {
 

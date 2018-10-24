@@ -7,50 +7,76 @@
 import { ConnorAssert } from "./assert";
 import { AssertCreationFunction, ErrorCreationFunction, IConnorDictionary } from "./declare";
 import { ConnorError } from "./error";
-import { CONNOR_ERROR_DESCRIPTION, CONNOR_MODULE, INTERNAL_ERROR_MESSAGE } from "./static";
+import { CONNOR_INTERNAL_ERROR, CONNOR_MODULE } from "./static";
 
 export class Connor {
 
-    public static get instance(): Connor {
+    public static instance(moduleName: string): Connor {
 
-        if (!this._instance) {
+        if (this._has(moduleName)) {
 
-            this._instance = new Connor();
+            return this._instances.get(moduleName) as Connor;
+        } else {
+
+            const newConnor: Connor = new Connor(moduleName);
+            this._instances.set(moduleName, newConnor);
+            return newConnor;
         }
-        return this._instance;
     }
 
-    public static dictionary(dict: IConnorDictionary): Connor {
+    public static dictionary(moduleName: string, dict: IConnorDictionary): Connor {
 
-        const connor: Connor = this.instance;
+        const connor: Connor = this.instance(moduleName);
         connor._combineDictionary(dict);
         return connor;
     }
 
-    public static refresh(): void {
+    public static getErrorCreator(moduleName: string): ErrorCreationFunction {
 
-        this._instance = undefined;
+        if (this._has(moduleName)) {
+
+            const connor: Connor = this._instances.get(moduleName) as Connor;
+            return connor.getErrorCreator();
+        }
+        throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.MODULE_NOT_FOUND);
     }
 
-    public static getErrorCreator(moduleName?: string): ErrorCreationFunction {
+    public static getAssertCreator(moduleName: string): AssertCreationFunction {
 
-        return this.instance.getErrorCreator(moduleName);
+        if (this._has(moduleName)) {
+
+            const connor: Connor = this._instances.get(moduleName) as Connor;
+            return connor.getAssertCreator();
+        }
+        throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.MODULE_NOT_FOUND);
     }
 
-    public static getAssertCreator(moduleName?: string): AssertCreationFunction {
+    private static _instances: Map<string, Connor>;
 
-        return this.instance.getAssertCreator(moduleName);
+    private static _has(moduleName: string): boolean {
+
+        if (!this._instances) {
+
+            this._instances = new Map<string, Connor>();
+            return false;
+        }
+
+        return this._instances.has(moduleName);
     }
-
-    private static _instance: Connor | undefined;
 
     private _dictionary: IConnorDictionary;
+    private _moduleName: string;
 
-    private constructor() {
+    private constructor(moduleName: string) {
 
-        this._dictionary = {
-            0: INTERNAL_ERROR_MESSAGE,
-        };
+        if (moduleName === CONNOR_MODULE.CONNOR ||
+            moduleName === CONNOR_MODULE.ASSERT) {
+
+            throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.MODULE_NAME_OCCUPIED);
+        }
+
+        this._dictionary = {};
+        this._moduleName = moduleName;
     }
 
     public getRawDescription(symbol: number | string): string {
@@ -60,42 +86,31 @@ export class Connor {
             const description: string | undefined = this._dictionary[symbol];
             if (!description) {
 
-                throw new ConnorError(0,
-                    CONNOR_MODULE.CONNOR,
-                    this._dictionary[0],
-                    CONNOR_ERROR_DESCRIPTION.ERROR_NOT_FOUND);
+                throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.ERROR_NOT_FOUND);
             }
             return description;
         }
         return symbol;
     }
 
-    public getErrorCreator(moduleName?: string): ErrorCreationFunction {
+    public getErrorCreator(): ErrorCreationFunction {
 
-        return createErrorCreator(this, moduleName);
+        return createErrorCreator(this, this._moduleName);
     }
 
-    public getAssertCreator(moduleName?: string): <T>(element: T) => ConnorAssert<T> {
+    public getAssertCreator(): <T>(element: T) => ConnorAssert<T> {
 
-        return createAssertCreator(this, moduleName);
+        return createAssertCreator(this, this._moduleName);
     }
 
     private _combineDictionary(dict: IConnorDictionary): Connor {
-
-        if (dict[0] || dict[1]) {
-
-            throw new ConnorError(0,
-                CONNOR_MODULE.CONNOR,
-                this._dictionary[0],
-                CONNOR_ERROR_DESCRIPTION.CORE_0_1_ARE_OCCUPIED);
-        }
 
         this._dictionary = { ...this._dictionary, ...dict };
         return this;
     }
 }
 
-const createAssertCreator = (connor: Connor, moduleName?: string): <T>(element: T) => ConnorAssert<T> => {
+const createAssertCreator = (connor: Connor, moduleName: string): <T>(element: T) => ConnorAssert<T> => {
 
     return <T>(element: T): ConnorAssert<T> => {
 
@@ -104,7 +119,7 @@ const createAssertCreator = (connor: Connor, moduleName?: string): <T>(element: 
     };
 };
 
-const createErrorCreator = (connor: Connor, moduleName?: string): ErrorCreationFunction => {
+const createErrorCreator = (connor: Connor, moduleName: string): ErrorCreationFunction => {
 
     return (symbol: number | string, ...replaces: string[]): ConnorError => {
 

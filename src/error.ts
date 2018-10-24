@@ -23,8 +23,6 @@ export class ConnorError extends Error {
         this.description = replaces.reduce((prev: string, current: string) => {
             return prev.replace('{}', current);
         }, description);
-        this.message = code + ": " + this.description;
-
-        this.module = moduleName;
+        this.message = moduleName + " [" + code + "]: " + this.description;
     }
 }
