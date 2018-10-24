@@ -12,8 +12,7 @@ import { ASSERT_ERROR_DESCRIPTION } from '../src/static';
 
 describe('Given an <AssertCreator> function', (): void => {
 
-    const twoDescription: string = 'two {}, two {}';
-    const threeDescription: string = 'three {}, three {}, three {}';
+    const mockDescription: string = 'mock description: {}';
 
     const moduleName: string = 'connor-assert-test';
     const error: ErrorCreationFunction = Connor.instance(moduleName).getErrorCreator();
@@ -23,8 +22,7 @@ describe('Given an <AssertCreator> function', (): void => {
     before((): void => {
 
         Connor.dictionary(moduleName, {
-            2: twoDescription,
-            3: threeDescription,
+            0: mockDescription,
         });
     });
 
@@ -190,9 +188,9 @@ describe('Given an <AssertCreator> function', (): void => {
     it('should throw some target error', (): void => {
 
         const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
-        const errText: string = error(2, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE).message;
+        const errText: string = error(0, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE).message;
         const exec: () => void = () => {
-            assert(false).to.be.true(2, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE);
+            assert(false).to.be.true(0, ASSERT_ERROR_DESCRIPTION.ELEMENT_NOT_TRUE);
         };
         expect(exec).to.be.throw(errText);
     });
