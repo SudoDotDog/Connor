@@ -134,7 +134,7 @@ export class ConnorAssert<T> {
 
     private _error(description: string, symbol?: number | string, ...replaces: string[]): ConnorError {
 
-        if (symbol) {
+        if (symbol !== undefined) {
 
             return this._creator(symbol, ...replaces);
         }

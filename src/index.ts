@@ -55,7 +55,7 @@ export class Connor {
 
     private static _has(moduleName: string): boolean {
 
-        if (!this._instances) {
+        if (this._instances === undefined) {
 
             this._instances = new Map<string, Connor>();
             return false;
@@ -84,7 +84,7 @@ export class Connor {
         if (typeof symbol === 'number') {
 
             const description: string | undefined = this._dictionary[symbol];
-            if (!description) {
+            if (description === undefined) {
 
                 throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.ERROR_NOT_FOUND);
             }
