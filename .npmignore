@@ -21,3 +21,6 @@ package-lock.json
 # temp
 .nyc_output
 coverage
+
+# lock
+yarn.lock
