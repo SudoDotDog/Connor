@@ -65,7 +65,8 @@ export class Connor {
     }
 
     private _dictionary: ConnorDictionary;
-    private _moduleName: string;
+
+    private readonly _moduleName: string;
 
     private constructor(moduleName: string) {
 

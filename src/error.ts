@@ -6,10 +6,10 @@
 
 export class ConnorError extends Error {
 
-    public code: number;
-    public description: string;
-    public message: string;
-    public module: string | undefined;
+    public readonly code: number;
+    public readonly description: string;
+    public readonly message: string;
+    public readonly module: string | undefined;
 
     public constructor(
         code: number,
