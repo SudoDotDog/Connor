@@ -6,10 +6,10 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { ErrorCreationFunction } from '../src/declare';
-import { ConnorError } from '../src/error';
-import { Connor } from '../src/index';
-import { CONNOR_MODULE } from '../src/static';
+import { ErrorCreationFunction } from '../../src/declare';
+import { ConnorError } from '../../src/error';
+import { Connor } from '../../src/index';
+import { CONNOR_MODULE } from '../../src/static';
 
 describe('Given an <Connor> class', (): void => {
 

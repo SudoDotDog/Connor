@@ -6,8 +6,8 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { ErrorCreationFunction } from '../src/declare';
-import { Connor } from '../src/index';
+import { ErrorCreationFunction } from '../../src/declare';
+import { Connor } from '../../src/index';
 
 describe('Given an <ErrorCreator> function', (): void => {
 

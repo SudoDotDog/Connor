@@ -6,9 +6,9 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { AssertCreationFunction, ErrorCreationFunction } from '../src/declare';
-import { Connor } from '../src/index';
-import { ASSERT_ERROR_DESCRIPTION } from '../src/static';
+import { AssertCreationFunction, ErrorCreationFunction } from '../../src/declare';
+import { Connor } from '../../src/index';
+import { ASSERT_ERROR_DESCRIPTION } from '../../src/static';
 
 describe('Given an <AssertCreator> function', (): void => {
 
