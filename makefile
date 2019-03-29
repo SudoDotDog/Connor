@@ -3,44 +3,30 @@ build := typescript/tsconfig.build.json
 dev := typescript/tsconfig.dev.json
 
 # NPX functions
-ifeq ($(OS), Windows_NT)
-	tsc := .\node_modules\.bin\tsc
-	mocha := .\node_modules\.bin\mocha
-else
-	tsc := node_modules/.bin/tsc
-	mocha := node_modules/.bin/mocha
-endif
+tsc := node_modules/.bin/tsc
+ts_node := node_modules/.bin/ts-node
+mocha := node_modules/.bin/mocha
 
-connor: dev
+.IGNORE: clean-linux
+
+main: dev
 
 dev:
 	@echo "[INFO] Building for development"
-	@$(tsc) --p $(dev)
+	@NODE_ENV=development $(tsc) --p $(dev)
 
 build:
 	@echo "[INFO] Building for production"
-	@$(tsc) --p $(build)
-
-run: dev
-	@node docs/test.js
+	@NODE_ENV=production $(tsc) --p $(build)
 
 tests:
 	@echo "[INFO] Testing with Mocha"
-ifeq ($(OS), Windows_NT)
-	@-setx NODE_ENV test
-else
-	@-export NODE_ENV=test
-endif
-	@$(mocha)
+	@NODE_ENV=test $(mocha)
 
 cov:
 	@echo "[INFO] Testing with Nyc and Mocha"
-ifeq ($(OS), Windows_NT)
-	@-setx NODE_ENV test
-else
-	@-export NODE_ENV=test
-endif
-	@nyc $(mocha)
+	@NODE_ENV=test \
+	nyc $(mocha)
 
 install:
 	@echo "[INFO] Installing dev Dependencies"
@@ -50,15 +36,16 @@ install-prod:
 	@echo "[INFO] Installing Dependencies"
 	@yarn install --production=true
 
-clean:
-ifeq ($(OS), Windows_NT)
-	@echo "[INFO] Skipping"
-else
+clean: clean-linux
+	@echo "[INFO] Cleaning release files"
+	@NODE_ENV=development $(ts_node) script/clean-app.ts
+
+clean-linux:
 	@echo "[INFO] Cleaning dist files"
 	@rm -rf dist
+	@rm -rf dist_script
 	@rm -rf .nyc_output
 	@rm -rf coverage
-endif
 
 publish: install build
 	@echo "[INFO] Publishing package"
