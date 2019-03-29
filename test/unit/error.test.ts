@@ -1,7 +1,8 @@
 /**
  * @author WMXPY
  * @namespace Connor
- * @description Error Test
+ * @description Error
+ * @override
  */
 
 import { expect } from 'chai';

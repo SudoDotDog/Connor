@@ -1,13 +1,14 @@
 /**
  * @author WMXPY
  * @namespace Connor
- * @description Assert Test
+ * @description Assert
+ * @override
  */
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
+import { Connor } from '../../src/connor';
 import { AssertCreationFunction, ErrorCreationFunction } from '../../src/declare';
-import { Connor } from '../../src/index';
 import { ASSERT_ERROR_DESCRIPTION } from '../../src/static';
 
 describe('Given an <AssertCreator> function', (): void => {

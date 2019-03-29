@@ -1,14 +1,15 @@
 /**
  * @author WMXPY
  * @namespace Connor
- * @description Connor Test
+ * @description Connor
+ * @override
  */
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
+import { Connor } from '../../src/connor';
 import { ErrorCreationFunction } from '../../src/declare';
 import { ConnorError } from '../../src/error';
-import { Connor } from '../../src/index';
 import { CONNOR_MODULE } from '../../src/static';
 
 describe('Given an <Connor> class', (): void => {

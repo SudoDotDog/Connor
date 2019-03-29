@@ -10,16 +10,21 @@ import Connor from "./index";
 
 export class Panic<Code extends string | number> {
 
-    public static withDictionary<Code extends string | number>(moduleName: string, errorList: string): Panic<Code> {
+    public static withDictionary<Code extends string | number>(moduleName: string, errorList: Record<number, string>): Panic<Code> {
 
-        return new Panic<Code>(moduleName, errorList);
+        Connor.dictionary(moduleName, errorList);
+        return new Panic<Code>(moduleName);
+    }
+
+    public static fromModule<Code extends string | number>(moduleName: string): Panic<Code> {
+
+        return new Panic<Code>(moduleName);
     }
 
     private readonly _getError: ErrorCreationFunction;
 
-    private constructor(moduleName: string, errorList: string) {
+    private constructor(moduleName: string) {
 
-        Connor.dictionary(moduleName, errorList);
         this._getError = Connor.getErrorCreator(moduleName);
     }
 
