@@ -13,6 +13,19 @@ describe('Given an <Assert> function', (): void => {
 
     const chance: Chance.Chance = new Chance('connor-assert');
 
+    it('exist should be able to pass in any', (): void => {
+
+        const message: string = chance.string();
+        const error: Error = new Error(message);
+        const value: number = chance.integer();
+
+        const exec = () => {
+            Assert.that<string>(value).to.be.string(error);
+        };
+
+        expect(exec).to.be.throw(message);
+    });
+
     it('exist should be fine if element is exist', (): void => {
 
         const value: number = chance.integer();

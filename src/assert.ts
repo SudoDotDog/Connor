@@ -6,7 +6,7 @@
 
 export class Assert<T = any> {
 
-    public static that<T = any>(element: T): Assert<T> {
+    public static that<T = any>(element: T | any): Assert<T> {
 
         return new Assert<T>(element);
     }
