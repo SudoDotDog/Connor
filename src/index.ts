@@ -4,11 +4,10 @@
  * @description Index
  */
 
-import { Connor } from "./connor";
-
+export { Assert } from "./assert";
 export { ConnorAssert } from "./assume";
+export { Connor } from "./connor";
 export { AssertCreationFunction, ConnorDictionary, ErrorCreationFunction } from "./declare";
 export { ConnorError } from "./error";
 export { Panic } from "./panic";
-export { Connor };
-export default Connor;
+

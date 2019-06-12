@@ -4,9 +4,9 @@
  * @description Panic
  */
 
+import { Connor } from "./connor";
 import { ErrorCreationFunction } from "./declare";
 import { ConnorError } from "./error";
-import Connor from "./index";
 
 export class Panic<Code extends string | number> {
 
