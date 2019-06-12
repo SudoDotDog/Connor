@@ -4,7 +4,7 @@
  * @description Connor
  */
 
-import { ConnorAssert } from "./assert";
+import { ConnorAssert } from "./assume";
 import { AssertCreationFunction, ConnorDictionary, ErrorCreationFunction } from "./declare";
 import { ConnorError } from "./error";
 import { CONNOR_INTERNAL_ERROR, CONNOR_MODULE } from "./static";

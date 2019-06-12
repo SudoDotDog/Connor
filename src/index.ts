@@ -6,7 +6,7 @@
 
 import { Connor } from "./connor";
 
-export { ConnorAssert } from "./assert";
+export { ConnorAssert } from "./assume";
 export { AssertCreationFunction, ConnorDictionary, ErrorCreationFunction } from "./declare";
 export { ConnorError } from "./error";
 export { Panic } from "./panic";

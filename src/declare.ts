@@ -4,7 +4,7 @@
  * @description Declare
  */
 
-import { ConnorAssert } from "./assert";
+import { ConnorAssert } from "./assume";
 import { ConnorError } from "./error";
 
 export type ConnorDictionary = Record<number, string>;
