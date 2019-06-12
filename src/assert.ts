@@ -11,7 +11,7 @@ export class Assert<T = any> {
         return new Assert<T>(element);
     }
 
-    private readonly _element: T;
+    private readonly _element: any;
 
     private _reverse: boolean = false;
 
@@ -30,7 +30,7 @@ export class Assert<T = any> {
         return this;
     }
     public get value(): T {
-        return this._element;
+        return this._element as T;
     }
 
     public exist(error?: Error): this {
