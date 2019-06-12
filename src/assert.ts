@@ -20,15 +20,11 @@ export class Assert<T = any> {
         this._element = element;
     }
 
-    public get is(): this {
-        return this;
-    }
-    public get to(): this {
-        return this;
-    }
-    public get be(): this {
-        return this;
-    }
+    public get is(): this { return this; }
+    public get to(): this { return this; }
+    public get be(): this { return this; }
+    public get should(): this { return this; }
+
     public get not(): this {
         this._reverse = true;
         return this;
@@ -37,15 +33,86 @@ export class Assert<T = any> {
         return this._element;
     }
 
-    public exist(error: Error): T {
+    public exist(error?: Error): this {
 
-        if (this._condition(
-            this._element === null
-            || this._element === undefined,
-        )) {
-            throw error;
+        this._attempt(
+            this._element !== null && this._element !== undefined,
+            error,
+        );
+        return this;
+    }
+
+    public good(error?: Error): this {
+
+        this._attempt(
+            Boolean(this._element),
+            error,
+        );
+        return this;
+    }
+
+    public true(error?: Error): this {
+
+        this._attempt(
+            typeof this._element === 'boolean' && this._element,
+            error,
+        );
+        return this;
+    }
+
+    public array(error?: Error): this {
+
+        this._attempt(
+            Array.isArray(this._element),
+            error,
+        );
+        return this;
+    }
+
+    public object(error?: Error): this {
+
+        this._attempt(
+            this._element !== null && typeof this._element === 'object',
+            error,
+        );
+        return this;
+    }
+
+    public number(error?: Error): this {
+
+        this._attempt(
+            typeof this._element === 'number',
+            error,
+        );
+        return this;
+    }
+
+    public string(error?: Error): this {
+
+        this._attempt(
+            typeof this._element === 'string',
+            error,
+        );
+        return this;
+    }
+
+    public has(key: string, error?: Error): this {
+
+        this._attempt(
+            this._element[key] !== null && this._element[key] !== undefined,
+            error,
+        );
+        return this;
+    }
+
+    private _attempt(condition: boolean, error?: Error): void {
+
+        if (!this._condition(condition)) {
+            const parsedError: Error = error || new Error('[Connor] Assert Failed');
+
+            throw parsedError;
         }
-        return this._element;
+        return;
     }
 
     private _condition(condition: boolean): boolean {
