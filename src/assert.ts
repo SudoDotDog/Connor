@@ -96,6 +96,33 @@ export class Assert<T = any> {
         return this;
     }
 
+    public boolean(error?: Error): this {
+
+        this._attempt(
+            typeof this._element === 'boolean',
+            error,
+        );
+        return this;
+    }
+
+    public undefined(error?: Error): this {
+
+        this._attempt(
+            typeof this._element === 'undefined',
+            error,
+        );
+        return this;
+    }
+
+    public bigint(error?: Error): this {
+
+        this._attempt(
+            typeof this._element === 'bigint',
+            error,
+        );
+        return this;
+    }
+
     public has(key: string, error?: Error): this {
 
         this._attempt(
