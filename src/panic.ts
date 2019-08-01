@@ -32,4 +32,11 @@ export class Panic<Code extends string | number> {
 
         return this._getError(code, ...replaces);
     }
+
+    public flint(code: Code): (...replaces: string[]) => ConnorError {
+
+        return (...replaces: string[]) => {
+            return this._getError(code, ...replaces);
+        };
+    }
 }
