@@ -22,34 +22,32 @@ export class ConnorAssert<T> {
         this._reverse = false;
     }
 
-    public get is(): ConnorAssert<T> {
-
+    public get is(): this {
+        return this;
+    }
+    public get are(): this {
+        return this;
+    }
+    public get to(): this {
+        return this;
+    }
+    public get be(): this {
         return this;
     }
 
-    public get to(): ConnorAssert<T> {
-
-        return this;
-    }
-
-    public get be(): ConnorAssert<T> {
-
-        return this;
-    }
-
-    public get not(): ConnorAssert<T> {
+    public get not(): this {
 
         this._reverse = true;
         return this;
     }
 
-    public and(element: T): ConnorAssert<T> {
+    public and(element: T): this {
 
         this._elements.push(element);
         return this;
     }
 
-    public exist(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public exist(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -62,7 +60,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public true(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public true(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -75,7 +73,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public array(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public array(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -88,7 +86,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public number(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public number(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -101,7 +99,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public string(symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public string(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
 
@@ -114,7 +112,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
-    public has(key: string | number, symbol?: number | string, ...replaces: string[]): ConnorAssert<T> {
+    public has(key: string | number, symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
 
