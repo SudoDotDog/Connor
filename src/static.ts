@@ -5,11 +5,13 @@
  */
 
 export enum CONNOR_MODULE {
+
     ASSERT = 'ASSERT',
     CONNOR = 'CONNOR',
 }
 
 export enum ASSERT_ERROR_DESCRIPTION {
+
     ELEMENT_NOT_EXIST = 'Expect element exists, but, not exist',
     ELEMENT_NOT_TRUE = 'Expect element is true, but, false',
     ELEMENT_NOT_NUMBER = 'Expect element is a number, but, not a number',
@@ -20,6 +22,7 @@ export enum ASSERT_ERROR_DESCRIPTION {
 }
 
 export enum CONNOR_INTERNAL_ERROR {
+
     MODULE_NAME_OCCUPIED = 'Module name is occupied',
     ERROR_NOT_FOUND = 'Error not found',
     MODULE_NOT_FOUND = 'Module not found',
