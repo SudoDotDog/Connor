@@ -3,6 +3,7 @@
         "Dependences",
         "WMXPY",
         "bigint",
+        "codecov",
         "connor",
         "ifeq",
         "setx",

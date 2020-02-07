@@ -1,20 +1,20 @@
 language: node_js
 
 node_js:
- - '10'
- - '11'
- - '12'
+  - "10"
+  - "11"
+  - "12"
 
 install:
- - npm install
- - npm install --only=dev
- - npm install codecov nyc -g
+  - npm install
+  - npm install --only=dev
+  - npm install codecov nyc -g
 
 before_script:
- - make
+  - make
 
 script:
- - nyc mocha
+  - nyc mocha
 
 after_success:
- - codecov -f ./coverage/coverage-final.json
+  - codecov -f ./coverage/coverage-final.json

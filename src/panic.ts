@@ -33,10 +33,23 @@ export class Panic<Code extends string | number> {
         return this._getError(code, ...replaces);
     }
 
+    public message(code: Code, ...replaces: string[]): string {
+
+        const error: ConnorError = this.code(code, ...replaces);
+        return error.message;
+    }
+
     public flint(code: Code): (...replaces: string[]) => ConnorError {
 
         return (...replaces: string[]) => {
-            return this._getError(code, ...replaces);
+            return this.code(code, ...replaces);
+        };
+    }
+
+    public paper(code: Code): (...replaces: string[]) => string {
+
+        return (...replaces: string[]) => {
+            return this.message(code, ...replaces);
         };
     }
 }

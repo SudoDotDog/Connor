@@ -1,6 +1,6 @@
 {
   "name": "connor",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": ":microscope: Assertion and error handling",
   "main": "dist/index.js",
   "directories": {
