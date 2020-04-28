@@ -20,9 +20,15 @@ export class ConnorError extends Error {
         super();
 
         this.code = code;
-        this.description = replaces.reduce((prev: string, current: string) => {
+        this.description = this._reduceDescription(description, replaces);
+
+        this.message = `${moduleName} [${code}]: ${this.description}`;
+    }
+
+    private _reduceDescription(description: string, replaces: string[]): string {
+
+        return replaces.reduce((prev: string, current: string) => {
             return prev.replace('{}', current);
         }, description);
-        this.message = moduleName + " [" + code + "]: " + this.description;
     }
 }
