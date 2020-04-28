@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/SudoDotDog/Connor#readme",
   "devDependencies": {
+    "@sudoo/io": "^1.7.0",
     "@sudoo/triforce": "^2.3.1"
   },
   "nyc": {
