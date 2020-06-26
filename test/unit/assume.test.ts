@@ -76,7 +76,7 @@ describe('Given an <AssertCreator> function', (): void => {
         const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
         const result: null = assert(null).to.be.not.exist().firstValue();
 
-        // tslint:disable-next-line
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         expect(result).to.be.null;
     });
 
@@ -172,7 +172,7 @@ describe('Given an <AssertCreator> function', (): void => {
 
         const assert: AssertCreationFunction = Connor.getAssertCreator(moduleName);
         const result: boolean = assert(true).to.be.true().firstValue();
-        // tslint:disable-next-line
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         expect(result).to.be.true;
     });
 

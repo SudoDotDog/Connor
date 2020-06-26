@@ -11,6 +11,8 @@ import { CONNOR_INTERNAL_ERROR, CONNOR_MODULE } from "./static";
 
 export class Connor {
 
+    private static _instances: Map<string, Connor>;
+
     public static instance(moduleName: string): Connor {
 
         if (this._has(moduleName)) {
@@ -50,8 +52,6 @@ export class Connor {
         }
         throw new ConnorError(0, CONNOR_MODULE.CONNOR, CONNOR_INTERNAL_ERROR.MODULE_NOT_FOUND);
     }
-
-    private static _instances: Map<string, Connor>;
 
     private static _has(moduleName: string): boolean {
 

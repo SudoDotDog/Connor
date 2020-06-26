@@ -78,6 +78,7 @@ export class Assert<T = any> {
         return this;
     }
 
+    // eslint-disable-next-line id-blacklist
     public number(error?: Error): this {
 
         this._attempt(
@@ -87,6 +88,7 @@ export class Assert<T = any> {
         return this;
     }
 
+    // eslint-disable-next-line id-blacklist
     public string(error?: Error): this {
 
         this._attempt(
@@ -96,6 +98,7 @@ export class Assert<T = any> {
         return this;
     }
 
+    // eslint-disable-next-line id-blacklist
     public boolean(error?: Error): this {
 
         this._attempt(
@@ -105,6 +108,7 @@ export class Assert<T = any> {
         return this;
     }
 
+    // eslint-disable-next-line id-blacklist
     public undefined(error?: Error): this {
 
         this._attempt(

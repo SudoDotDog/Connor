@@ -25,6 +25,7 @@ describe('Given a <Panic> class', (): void => {
         });
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('panic');
 
     it('should be able to create a panic class', (): void => {

@@ -86,6 +86,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
+    // eslint-disable-next-line id-blacklist
     public number(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
@@ -99,6 +100,7 @@ export class ConnorAssert<T> {
         return this;
     }
 
+    // eslint-disable-next-line id-blacklist
     public string(symbol?: number | string, ...replaces: string[]): this {
 
         const result: boolean = this._eachElement((value: T) => {
