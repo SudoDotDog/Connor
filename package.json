@@ -1,7 +1,7 @@
 {
   "name": "connor",
   "version": "2.7.0",
-  "description": ":microscope: Assertion and error handling",
+  "description": "Assertion and error handling",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Connor.git"

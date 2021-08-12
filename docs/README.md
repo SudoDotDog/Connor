@@ -5,4 +5,4 @@
 [![npm version](https://badge.fury.io/js/connor.svg)](https://badge.fury.io/js/connor)
 [![downloads](https://img.shields.io/npm/dm/connor.svg)](https://www.npmjs.com/package/connor)
 
-:microscope: Assertion and error handling
+Assertion and error handling
