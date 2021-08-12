@@ -6,3 +6,11 @@
 [![downloads](https://img.shields.io/npm/dm/connor.svg)](https://www.npmjs.com/package/connor)
 
 Assertion and error handling
+
+## Install
+
+```sh
+yarn add connor
+# Or
+npm install connor --save
+```
