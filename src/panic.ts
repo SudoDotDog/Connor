@@ -28,25 +28,25 @@ export class Panic<Code extends string | number> {
         this._getError = Connor.getErrorCreator(moduleName);
     }
 
-    public code(code: Code, ...replaces: string[]): ConnorError {
+    public code(code: Code, ...replaces: any[]): ConnorError {
 
         return this._getError(code, ...replaces);
     }
 
-    public message(code: Code, ...replaces: string[]): string {
+    public message(code: Code, ...replaces: any[]): string {
 
         const error: ConnorError = this.code(code, ...replaces);
         return error.message;
     }
 
-    public flint(code: Code): (...replaces: string[]) => ConnorError {
+    public flint(code: Code): (...replaces: any[]) => ConnorError {
 
         return (...replaces: string[]) => {
             return this.code(code, ...replaces);
         };
     }
 
-    public paper(code: Code): (...replaces: string[]) => string {
+    public paper(code: Code): (...replaces: any[]) => string {
 
         return (...replaces: string[]) => {
             return this.message(code, ...replaces);

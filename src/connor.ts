@@ -122,7 +122,7 @@ const createAssertCreator = (connor: Connor, moduleName: string): <T>(element: T
 
 const createErrorCreator = (connor: Connor, moduleName: string): ErrorCreationFunction => {
 
-    return (symbol: number | string, ...replaces: string[]): ConnorError => {
+    return (symbol: number | string, ...replaces: any[]): ConnorError => {
 
         const info: string = connor.getRawDescription(symbol);
         const code: number

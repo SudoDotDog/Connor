@@ -4,6 +4,8 @@
  * @description Error
  */
 
+import { formatReplace } from "./format";
+
 export class ConnorError extends Error {
 
     public readonly code: number;
@@ -15,7 +17,7 @@ export class ConnorError extends Error {
         code: number,
         moduleName: string | undefined,
         description: string,
-        ...replaces: string[]) {
+        ...replaces: any[]) {
 
         super();
 
@@ -28,7 +30,7 @@ export class ConnorError extends Error {
     private _reduceDescription(description: string, replaces: string[]): string {
 
         return replaces.reduce((prev: string, current: string) => {
-            return prev.replace('{}', current);
+            return prev.replace('{}', formatReplace(current));
         }, description);
     }
 }
