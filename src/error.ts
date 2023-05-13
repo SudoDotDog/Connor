@@ -19,12 +19,20 @@ export class ConnorError extends Error {
         description: string,
         ...replaces: any[]) {
 
-        super();
+        const enrichedDescription: string =
+            replaces.reduce((prev: string, current: string) => {
+                return prev.replace('{}', formatReplace(current));
+            }, description);
+
+        const message: string = `${moduleName} [${code}]: ${enrichedDescription}`;
+
+        super(message);
 
         this.code = code;
-        this.description = this._reduceDescription(description, replaces);
+        this.description = enrichedDescription;
+        this.message = message;
 
-        this.message = `${moduleName} [${code}]: ${this.description}`;
+        Object.setPrototypeOf(this, ConnorError.prototype);
     }
 
     private _reduceDescription(description: string, replaces: string[]): string {
