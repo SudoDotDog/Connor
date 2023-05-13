@@ -1,6 +1,6 @@
 {
   "name": "connor",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Assertion and error handling",
   "repository": {
     "type": "git",
@@ -17,8 +17,6 @@
   },
   "homepage": "https://github.com/SudoDotDog/Connor#readme",
   "devDependencies": {
-    "@sudoo/build-utils": "^1.0.0",
-    "@sudoo/license": "^2.1.0",
     "@sudoo/triforce": "^3.11.0"
   },
   "nyc": {
