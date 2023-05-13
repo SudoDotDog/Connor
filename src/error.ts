@@ -34,11 +34,4 @@ export class ConnorError extends Error {
 
         Object.setPrototypeOf(this, ConnorError.prototype);
     }
-
-    private _reduceDescription(description: string, replaces: string[]): string {
-
-        return replaces.reduce((prev: string, current: string) => {
-            return prev.replace('{}', formatReplace(current));
-        }, description);
-    }
 }
